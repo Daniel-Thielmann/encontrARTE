@@ -1,7 +1,3 @@
-Aqui está o README do projeto **EncontrARTE** baseado nos documentos fornecidos:
-
----
-
 # 📌 EncontrARTE - Aplicativo de Gestão de Saúde para a Maturidade
 
 ## 📖 Visão Geral
