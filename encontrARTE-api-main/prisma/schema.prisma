@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(uuid())
+  name     String
+  email    String
+  password String
+
+  MedicationStock MedicationStock[]
+  Routine         Routine[]
+  Reminder        Reminder[]
+}
+
+model MedicationStock {
+  id               String @id @default(uuid())
+  name             String
+  dose             Int
+  numberOfPills    Int
+  numberOfPackages Int
+  user_id          String
+
+  user      User       @relation(fields: [user_id], references: [id])
+  routines  Routine[]
+  reminders Reminder[]
+}
+
+model Routine {
+  id                    String   @id @default(uuid())
+  name                  String   @default("Routine")
+  numberOfPillsIngested Int
+  timeOfPillIngestion   DateTime
+  user_id               String
+  medication_id         String
+
+  user       User            @relation(fields: [user_id], references: [id])
+  medication MedicationStock @relation(fields: [medication_id], references: [id])
+  reminders  Reminder[]
+}
+
+model Reminder {
+  id                   String    @id @default(uuid())
+  name                 String
+  startDate            DateTime
+  endDate              DateTime?
+  endsWhenStockRunsOut Boolean?  @default(false)
+  user_id              String
+  routine_id           String
+  medication_id        String
+
+  routine    Routine         @relation(fields: [routine_id], references: [id])
+  medication MedicationStock @relation(fields: [medication_id], references: [id])
+  user       User            @relation(fields: [user_id], references: [id])
+}
