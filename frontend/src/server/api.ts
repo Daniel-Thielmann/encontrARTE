@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const api = axios.create({
   // baseURL: 'http://192.168.2.117:3030', //incubadora
@@ -8,10 +8,10 @@ export const api = axios.create({
   // baseURL: 'http://192.168.2.161:3030', //codi centro
   // baseURL: 'http://192.168.2.153:3030', //codi centro
   //baseURL: 'http://10.23.96.122:3030', //segundo andar
-  baseURL: 'http://192.168.2.107:3030', //local
+  baseURL: "http://localhost:3000", //local
   // baseURL: 'http://192.168.1.166:3030', //local
 
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
